@@ -5,6 +5,8 @@
 package visualizador;
 
 import java.awt.Image;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -18,12 +20,34 @@ public class Frame extends javax.swing.JFrame {
     private ImageIcon imagen;
     private Icon icono;
     
+    ArrayList arrayNombres = new ArrayList();                   //Creacion del arreglo donde se almacenaran los nombres
+    ArrayList arrayValores = new ArrayList();                   //Creacion del arreglo donde se almacenaran los valores
+    
+    DefaultListModel modeloClientes = new DefaultListModel();   //Define un modelo para poderlo añadir al JList
+    DefaultListModel modeloValores = new DefaultListModel();    //Define un modelo para poderlo añadir al JList
+    
     public Frame() {
         initComponents();
         this.setLocationRelativeTo(this);
         
         this.pintarImagen(jLblImage1, "src/visualizador/pizza3.jpg");
         this.pintarImagen(jLblImage2, "src/visualizador/pizzanew.jpg");
+        
+        jlClientes.setModel(modeloValores);                     //le pone el modelo al JList
+        jlValores.setModel(modeloValores);                      //le pone el modelo al JList
+        jbgGrupoTamano.add(jrbGrande);
+        jbgGrupoTamano.add(jrbMediana);
+        jbgGrupoTamano.add(jrbPequena);
+        jbgGrupoTamano.add(jrbNinguno);
+        jbgGrupoPorciones.add(jrb0);
+        jbgGrupoPorciones.add(jrb1);
+        jbgGrupoPorciones.add(jrb2);
+        jbgGrupoPorciones.add(jrb3);
+        jrbNinguno.setSelected(true);                           //lo selecciona
+        jrb0.setSelected(true);                                 //lo selecciona       
+        
+        
+        
     }
 
     /**
@@ -35,6 +59,8 @@ public class Frame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jbgGrupoTamano = new javax.swing.ButtonGroup();
+        jbgGrupoPorciones = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLblImage1 = new javax.swing.JLabel();
         jLblImage2 = new javax.swing.JLabel();
@@ -78,7 +104,7 @@ public class Frame extends javax.swing.JFrame {
         jbtnSalir = new javax.swing.JButton();
         jbtnCalcular = new javax.swing.JButton();
         jbtnNuevo = new javax.swing.JButton();
-        jbtnListar = new javax.swing.JButton();
+        jbtnMostrarListado = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -401,6 +427,11 @@ public class Frame extends javax.swing.JFrame {
 
         jbtnCalcular.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jbtnCalcular.setText("Calcular");
+        jbtnCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnCalcularActionPerformed(evt);
+            }
+        });
 
         jbtnNuevo.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jbtnNuevo.setText("Nuevo");
@@ -410,8 +441,13 @@ public class Frame extends javax.swing.JFrame {
             }
         });
 
-        jbtnListar.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        jbtnListar.setText("Listar");
+        jbtnMostrarListado.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jbtnMostrarListado.setText("Listar");
+        jbtnMostrarListado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnMostrarListadoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpBotonesControlLayout = new javax.swing.GroupLayout(jpBotonesControl);
         jpBotonesControl.setLayout(jpBotonesControlLayout);
@@ -423,7 +459,7 @@ public class Frame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jbtnNuevo)
                 .addGap(18, 18, 18)
-                .addComponent(jbtnListar)
+                .addComponent(jbtnMostrarListado)
                 .addGap(18, 18, 18)
                 .addComponent(jbtnSalir)
                 .addContainerGap(75, Short.MAX_VALUE))
@@ -436,7 +472,7 @@ public class Frame extends javax.swing.JFrame {
                     .addComponent(jbtnSalir)
                     .addComponent(jbtnCalcular)
                     .addComponent(jbtnNuevo)
-                    .addComponent(jbtnListar))
+                    .addComponent(jbtnMostrarListado))
                 .addGap(31, 31, 31))
         );
 
@@ -510,6 +546,99 @@ public class Frame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jbtnNuevoActionPerformed
 
+    private void jbtnMostrarListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMostrarListadoActionPerformed
+        // TODO add your handling code here:
+        int i;
+        modeloClientes.removeAllElements();
+        modeloValores.removeAllElements();
+        for(i = 0; i < arrayNombres.size(); i++){
+            modeloClientes.addElement(arrayNombres.get(i));
+            modeloValores.addElement(arrayValores.get(i));
+        }
+    }//GEN-LAST:event_jbtnMostrarListadoActionPerformed
+
+    private void jbtnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCalcularActionPerformed
+        // TODO add your handling code here:
+        int vrTamanio, vrPorcion, vrChamp, vrGuacam, vrPeper, vrQues, vrSalam, vrBebida, vrTotal;
+        String datoCliente, datoValor;
+
+        vrTamanio = vrPorcion = vrChamp = vrGuacam = vrPeper = vrQues = vrSalam = vrBebida = 0;
+        if(rbGrande.isSelected()) {
+            vrTamanio=10000;
+        }
+        else
+        {
+            if(rbMediana.isSelected()) {
+                vrTamanio = 6000;
+            }
+            else
+            {
+                if(rbPequenia.isSelected()) {
+                    vrTamanio = 3000;
+                }
+            }
+        }
+        if(rb1.isSelected()) {
+            vrPorcion = 3000; 
+        }
+        else
+        {
+            if(rb2.isSelected()) {
+                vrPorcion = 6000;
+            }
+            else
+            {
+                if(rb3.isSelected()) {
+                    vrPorcion = 9000;
+                }
+            }
+        }
+        if(chbChampiniones.isSelected()) {
+            vrChamp = 2000;
+        }
+        if(chbGuacamole.isSelected()) {
+            vrGuacam = 2000;
+        }
+        if(chbPeperoni.isSelected()) {
+            vrPeper = 2000;
+        }
+        if(chbQueso.isSelected()) {
+            vrQues = 2000;
+        }
+        if(chbSalami.isSelected()) {
+            vrSalam = 2000;
+        }
+        switch(cbBebidas.getSelectedIndex())
+        {
+            case 0:
+                vrBebida = 0;
+                break;
+            case 1:
+                vrBebida = 2000;
+                break;
+            case 2:
+                vrBebida = 2500;
+                break;
+            case 3:
+                vrBebida = 3500;
+                break;
+            case 4:
+                vrBebida = 3000;
+                break;
+            case 5:
+                vrBebida = 4000;
+                break;
+            default:break;
+        }
+
+        vrTotal = vrTamanio+vrPorcion+vrChamp+vrGuacam+vrPeper+vrQues+vrSalam+vrBebida;
+        lblValor.setText(Integer.toString(vrTotal));
+        datoCliente = txtNombre.getText();
+        arrayClientes.add(datoCliente);
+        datoValor = lblValor.getText();
+        arrayValores.add(datoValor);
+    }//GEN-LAST:event_jbtnCalcularActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -551,14 +680,14 @@ public class Frame extends javax.swing.JFrame {
         jtxtCorreoElectronico.setText("");
         jtxtTelefono.setText("");
         jrb0.setSelected(true);
-        jrb1.setSelected(false);
-        jrb2.setSelected(false);
-        jrb3.setSelected(false);
-        jrb4.setSelected(false);
+        //jrb1.setSelected(false);
+        //jrb2.setSelected(false);
+        //jrb3.setSelected(false);
+        //jrb4.setSelected(false);
         jrbNinguno.setSelected(true);
-        jrbGrande.setSelected(false);
-        jrbMediana.setSelected(false);
-        jrbPequena.setSelected(false);
+        //jrbGrande.setSelected(false);
+        //jrbMediana.setSelected(false);
+        //jrbPequena.setSelected(false);
         jcbBebidas.setSelectedIndex(0);
         jchbChampinones.setSelected(false);
         jchbGuacamole.setSelected(false);
@@ -598,8 +727,10 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.ButtonGroup jbgGrupoPorciones;
+    private javax.swing.ButtonGroup jbgGrupoTamano;
     private javax.swing.JButton jbtnCalcular;
-    private javax.swing.JButton jbtnListar;
+    private javax.swing.JButton jbtnMostrarListado;
     private javax.swing.JButton jbtnNuevo;
     private javax.swing.JButton jbtnSalir;
     private javax.swing.JComboBox<String> jcbBebidas;
