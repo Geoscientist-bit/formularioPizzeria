@@ -20,7 +20,7 @@ public class Frame extends javax.swing.JFrame {
     private ImageIcon imagen;
     private Icon icono;
     
-    ArrayList arrayNombres = new ArrayList();                   //Creacion del arreglo donde se almacenaran los nombres
+    ArrayList arrayClientes = new ArrayList();                   //Creacion del arreglo donde se almacenaran los nombres
     ArrayList arrayValores = new ArrayList();                   //Creacion del arreglo donde se almacenaran los valores
     
     DefaultListModel modeloClientes = new DefaultListModel();   //Define un modelo para poderlo añadir al JList
@@ -33,7 +33,7 @@ public class Frame extends javax.swing.JFrame {
         this.pintarImagen(jLblImage1, "src/visualizador/pizza3.jpg");
         this.pintarImagen(jLblImage2, "src/visualizador/pizzanew.jpg");
         
-        jlClientes.setModel(modeloValores);                     //le pone el modelo al JList
+        jlClientes.setModel(modeloClientes);                     //le pone el modelo al JList
         jlValores.setModel(modeloValores);                      //le pone el modelo al JList
         jbgGrupoTamano.add(jrbGrande);
         jbgGrupoTamano.add(jrbMediana);
@@ -105,6 +105,8 @@ public class Frame extends javax.swing.JFrame {
         jbtnCalcular = new javax.swing.JButton();
         jbtnNuevo = new javax.swing.JButton();
         jbtnMostrarListado = new javax.swing.JButton();
+        lblValor = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -417,6 +419,8 @@ public class Frame extends javax.swing.JFrame {
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
+        jpBotonesControl.setBackground(new java.awt.Color(247, 241, 229));
+
         jbtnSalir.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jbtnSalir.setText("Salir");
         jbtnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -453,8 +457,8 @@ public class Frame extends javax.swing.JFrame {
         jpBotonesControl.setLayout(jpBotonesControlLayout);
         jpBotonesControlLayout.setHorizontalGroup(
             jpBotonesControlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpBotonesControlLayout.createSequentialGroup()
-                .addGap(72, 72, 72)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBotonesControlLayout.createSequentialGroup()
+                .addContainerGap(46, Short.MAX_VALUE)
                 .addComponent(jbtnCalcular)
                 .addGap(18, 18, 18)
                 .addComponent(jbtnNuevo)
@@ -462,19 +466,25 @@ public class Frame extends javax.swing.JFrame {
                 .addComponent(jbtnMostrarListado)
                 .addGap(18, 18, 18)
                 .addComponent(jbtnSalir)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addGap(43, 43, 43))
         );
         jpBotonesControlLayout.setVerticalGroup(
             jpBotonesControlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBotonesControlLayout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
+                .addContainerGap(35, Short.MAX_VALUE)
                 .addGroup(jpBotonesControlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtnSalir)
                     .addComponent(jbtnCalcular)
                     .addComponent(jbtnNuevo)
                     .addComponent(jbtnMostrarListado))
-                .addGap(31, 31, 31))
+                .addGap(33, 33, 33))
         );
+
+        lblValor.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        lblValor.setBorder(new javax.swing.border.MatteBorder(null));
+
+        jLabel7.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel7.setText("Valor $");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -497,8 +507,12 @@ public class Frame extends javax.swing.JFrame {
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addGap(31, 31, 31)
+                .addComponent(lblValor, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(110, 110, 110)
                 .addComponent(jpBotonesControl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(392, 392, 392))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -516,9 +530,16 @@ public class Frame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jpDatosPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpDatosCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpBotonesControl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jpBotonesControl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblValor, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))))
+                .addGap(12, 12, 12))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -551,8 +572,8 @@ public class Frame extends javax.swing.JFrame {
         int i;
         modeloClientes.removeAllElements();
         modeloValores.removeAllElements();
-        for(i = 0; i < arrayNombres.size(); i++){
-            modeloClientes.addElement(arrayNombres.get(i));
+        for(i = 0; i < arrayClientes.size(); i++){
+            modeloClientes.addElement(arrayClientes.get(i));
             modeloValores.addElement(arrayValores.get(i));
         }
     }//GEN-LAST:event_jbtnMostrarListadoActionPerformed
@@ -563,52 +584,57 @@ public class Frame extends javax.swing.JFrame {
         String datoCliente, datoValor;
 
         vrTamanio = vrPorcion = vrChamp = vrGuacam = vrPeper = vrQues = vrSalam = vrBebida = 0;
-        if(rbGrande.isSelected()) {
-            vrTamanio=10000;
+        if(jrbGrande.isSelected()) {
+            vrTamanio=25000;
         }
         else
         {
-            if(rbMediana.isSelected()) {
-                vrTamanio = 6000;
+            if(jrbMediana.isSelected()) {
+                vrTamanio = 15000;
             }
             else
             {
-                if(rbPequenia.isSelected()) {
-                    vrTamanio = 3000;
+                if(jrbPequena.isSelected()) {
+                    vrTamanio = 8000;
                 }
             }
         }
-        if(rb1.isSelected()) {
+        if(jrb1.isSelected()) {
             vrPorcion = 3000; 
         }
         else
         {
-            if(rb2.isSelected()) {
+            if(jrb2.isSelected()) {
                 vrPorcion = 6000;
             }
             else
             {
-                if(rb3.isSelected()) {
+                if(jrb3.isSelected()) {
                     vrPorcion = 9000;
+                }
+                else{
+                    if(jrb4.isSelected()){
+                        vrPorcion = 12000;
+                    }
                 }
             }
         }
-        if(chbChampiniones.isSelected()) {
+        if(jchbChampinones.isSelected()) {
             vrChamp = 2000;
         }
-        if(chbGuacamole.isSelected()) {
+        if(jchbGuacamole.isSelected()) {
             vrGuacam = 2000;
         }
-        if(chbPeperoni.isSelected()) {
+        if(jchbPeperoni.isSelected()) {
             vrPeper = 2000;
         }
-        if(chbQueso.isSelected()) {
+        if(jchbQueso.isSelected()) {
             vrQues = 2000;
         }
-        if(chbSalami.isSelected()) {
+        if(jchbSalami.isSelected()) {
             vrSalam = 2000;
         }
-        switch(cbBebidas.getSelectedIndex())
+        switch(jcbBebidas.getSelectedIndex())
         {
             case 0:
                 vrBebida = 0;
@@ -633,7 +659,7 @@ public class Frame extends javax.swing.JFrame {
 
         vrTotal = vrTamanio+vrPorcion+vrChamp+vrGuacam+vrPeper+vrQues+vrSalam+vrBebida;
         lblValor.setText(Integer.toString(vrTotal));
-        datoCliente = txtNombre.getText();
+        datoCliente = jtxtNombre.getText();
         arrayClientes.add(datoCliente);
         datoValor = lblValor.getText();
         arrayValores.add(datoValor);
@@ -717,6 +743,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLblImage1;
     private javax.swing.JLabel jLblImage2;
     private javax.swing.JPanel jPanel1;
@@ -758,5 +785,6 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JTextField jtxtDireccion;
     private javax.swing.JTextField jtxtNombre;
     private javax.swing.JTextField jtxtTelefono;
+    private javax.swing.JLabel lblValor;
     // End of variables declaration//GEN-END:variables
 }
